@@ -1,6 +1,30 @@
+<div align="center">
+  <img src="logo.svg" alt="glissade logo" width="128" height="128" />
+</div>
+
 # glissade
 
-Convert markdown files into interactive HTML slide presentations.
+[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/glissade.svg)](https://pypi.org/project/glissade/)
+
+✨ Convert markdown files into **beautiful, interactive HTML slide presentations** — powered by [Catppuccin](https://catppuccin.com/) colors.
+
+> No JavaScript frameworks. No build complexity. Pure, elegant slides.
+
+---
+
+## ✨ Features
+
+- 🎨 **Catppuccin themes** — Five color palettes (default, frappe, latte, macchiato, mocha)
+- ⌨️ **Keyboard navigation** — Arrow keys or h/l to move between slides
+- 🔄 **Live mode** — Auto-reload while editing with `--live`
+- 📄 **PDF export** — Generate slides as PDF with `--pdf`
+- 🧭 **Optional navigation sidebar** — Jump to any slide instantly
+- 📱 **Self-contained HTML** — No external dependencies, works offline
+- 🐍 **Pure Python** — Simple, readable codebase
+
+---
 
 ## Installation
 
@@ -16,7 +40,7 @@ pip install glissade
 
 ## Quick Start
 
-1. Create a `SLIDES.md` file:
+### 1. Create `SLIDES.md`
 
 ```markdown
 ---
@@ -24,7 +48,7 @@ nav: true
 theme: mocha
 ---
 
-# Welcome
+# Welcome 👋
 
 This is the first slide.
 
@@ -41,47 +65,61 @@ This is the first slide.
 # Thank you!
 ```
 
-2. Build the presentation:
+### 2. Build
 
 ```bash
 glissade
 ```
 
-3. Open `index.html` in a browser.
+### 3. Present
+
+Open `index.html` in your browser and navigate with arrow keys or h/l.
 
 ## Writing Slides
 
-### Slide Separator
+### Slide Structure
 
-Slides are separated by `---` on its own line. The first `---` block at the top of the file is reserved for metadata.
-
-### Metadata (YAML Front Matter)
-
-Add optional YAML metadata between `---` markers at the top of the file:
+Slides are separated by `---` on a line by itself. The first `---` block is reserved for YAML metadata.
 
 ```markdown
 ---
-nav: true
+nav: true        # Optional metadata
 theme: mocha
 ---
+
+# Slide 1
+
+Content...
+
+---
+
+# Slide 2
+
+More content...
 ```
 
-| Key     | Default     | Description                         |
-|---------|-------------|-------------------------------------|
-| `nav`   | `false`     | Show a navigation sidebar           |
-| `theme` | `default`   | Color theme to use                  |
+### Metadata (YAML Front Matter)
 
-### Available Themes
+Configure your presentation with optional YAML at the top:
 
-All themes are based on [Catppuccin](https://github.com/catppuccin/catppuccin):
+| Key | Default | Description |
+|-----|---------|-------------|
+| `nav` | `false` | Show navigation sidebar |
+| `theme` | `default` | Color theme (see below) |
 
-- `default` — Default palette
-- `frappe` — Catppuccin Frappé
-- `latte` — Catppuccin Latte
-- `macchiato` — Catppuccin Macchiato
-- `mocha` — Catppuccin Mocha
+### Themes
 
-### Markdown Features
+Choose from **5 Catppuccin themes**:
+
+| Theme | Description |
+|-------|-------------|
+| `default` | Original palette |
+| `frappe` | Warm, frappé-inspired |
+| `latte` | Light and airy |
+| `macchiato` | Cool and balanced |
+| `mocha` | Dark and rich |
+
+### Markdown Support
 
 Each slide supports standard markdown:
 
@@ -96,88 +134,101 @@ Regular paragraphs with **bold**, *italic*, and `inline code`.
 1. Numbered lists
 2. Work too
 
-> Blockquotes are supported.
+> Blockquotes are supported
 
 ![Alt text becomes figcaption](https://example.com/image.jpg)
 ```
 
-Images are automatically wrapped in `<figure>` tags. The alt text is used as `<figcaption>`.
+**Images** are wrapped in `<figure>` tags — alt text becomes figcaption.
 
 ### Navigation
 
-In the generated presentation:
+Control your presentation:
 
-- **Arrow keys** (← →) or **h / l** — Navigate between slides
-- **Click** nav links — Jump to a specific slide (when `nav: true`)
+- **← →** or **h / l** — Navigate slides
+- **Click nav links** — Jump to any slide (when `nav: true`)
 
-## CLI Usage
+---
 
-```
+## Command Line Usage
+
+```bash
 glissade [OPTIONS]
 ```
 
-| Option               | Default              | Description                          |
-|----------------------|----------------------|--------------------------------------|
-| `--input`            | `SLIDES.md`          | Path to the markdown source file     |
-| `--output`           | `index.html`         | Path for the generated HTML file     |
-| `--template`         | *(bundled)*          | Custom main HTML template            |
-| `--slide-template`   | *(bundled)*          | Custom individual slide template     |
-| `--slides-template`  | *(bundled)*          | Custom slides container template     |
-| `--style`            | *(bundled)*          | Custom base CSS file                 |
-| `--script`           | *(bundled)*          | Custom JavaScript file               |
-| `--pdf`              |                      | Export an additional PDF file        |
-| `--live`             |                      | Start live mode with auto-reload     |
-| `--port`             | `8080`               | Port for the live server             |
+### Common Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--input` | `SLIDES.md` | Markdown source file |
+| `--output` | `index.html` | Output HTML file |
+| `--live` | — | Start with live reload |
+| `--port` | `8080` | Port for live server |
+| `--pdf` | — | Also export as PDF |
+| `--theme` | `default` | Override YAML theme |
+
+### Advanced Options
+
+| Option | Description |
+|--------|-------------|
+| `--template` | Custom main HTML template |
+| `--slide-template` | Custom slide template |
+| `--slides-template` | Custom slides container |
+| `--style` | Custom CSS file |
+| `--script` | Custom JavaScript file |
 
 ### Examples
 
 ```bash
-# Build with default settings
+# Standard build
 glissade
 
-# Custom input/output
+# Custom files
 glissade --input presentation.md --output slides.html
 
-# Live mode — opens an HTTP server and rebuilds on file changes
+# Live editing (auto-reload)
 glissade --live
 
-# Live mode on a specific port
+# Live on custom port
 glissade --live --port 3000
 
-# Build HTML + PDF
-glissade --pdf slides.pdf
+# Export to PDF
+glissade --pdf presentation.pdf
 
-# Build PDF only
-glissade --output slides.pdf
+# PDF only
+glissade --output presentation.pdf
 ```
 
-You can also run as a Python module:
-
+**Run as module:**
 ```bash
 python -m glissade
 ```
 
-PDF export generates one page per slide and renders only slide content (no navigation sidebar or footer numbering).
-It uses a Chromium-compatible browser in headless mode (`google-chrome`, `chromium`, etc.).
-If needed, set `GLISSADE_CHROME_BIN` to the browser binary path.
+### PDF Export
 
-## Live Mode
+PDF export renders one page per slide (no navigation sidebar).
+Requires a Chromium-compatible browser (`google-chrome`, `chromium`, etc.).
 
-Pass `--live` to start a local HTTP server with automatic rebuild and browser reload:
+To specify a custom browser:
+```bash
+GLISSADE_CHROME_BIN=/path/to/chrome glissade --pdf output.pdf
+```
+
+### Live Reload
 
 ```bash
 glissade --live
 ```
 
-This will:
+This:
+1. Builds your presentation
+2. Starts `http://localhost:8080`
+3. Watches for file changes
+4. Auto-rebuilds and reloads the browser
+5. **Preserves your current slide** across reloads
 
-1. Build the presentation
-2. Start an HTTP server on `http://localhost:8080`
-3. Watch source files for changes
-4. Rebuild and reload the browser automatically when a file is modified
-
-The current slide position is preserved across reloads.
+---
 
 ## License
 
-MIT
+[MIT](LICENSE)
