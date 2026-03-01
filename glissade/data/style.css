@@ -1,0 +1,382 @@
+ /* Colors are loaded from themes/<name>.css */
+
+ body {
+     font-family: 'JetBrains Mono', monospace;
+     background-color: var(--mantle);
+     color: var(--text);
+     margin: 0;
+     padding: 0;
+     display: flex;
+     height: 100vh;
+     overflow: hidden;
+ }
+
+ /* Barre de navigation */
+ nav {
+     width: 80px;
+     padding: 20px 0;
+     height: 100vh;
+     position: fixed;
+     left: 0;
+     top: 0;
+     background-color: var(--base);
+     z-index: 10;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ nav ul {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+ }
+
+ nav li {
+     margin: 0;
+     text-align: center;
+ }
+
+ nav a {
+     color: var(--subtext1);
+     text-decoration: none;
+     display: block;
+     padding: 8px;
+     border-radius: 4px;
+     transition: background-color 0.2s;
+     width: 40px;
+     height: 40px;
+     line-height: 40px;
+     font-size: 0.9em;
+ }
+
+ nav a:hover {
+     background-color: var(--surface1);
+     color: var(--text);
+ }
+
+ nav a.active {
+     background-color: var(--blue);
+     color: var(--base);
+ }
+
+ li {
+     text-align: left;
+     line-height: 1.8;
+     font-size: 1.1em;
+     margin-left: 1.5em;
+     margin-bottom: 0.5em;
+ }
+
+ /* Conteneur des slides */
+ .slides {
+     margin-left: 80px;
+     width: calc(100vw - 80px);
+     height: 100vh;
+     position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: var(--mantle);
+ }
+
+ /* Chaque slide - Format 16:9 comme PowerPoint */
+ .slide {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 90%;
+     max-width: min(calc(100vh * 16 / 9 - 160px), calc(100vw - 160px));
+     aspect-ratio: 16 / 9;
+     background-color: var(--base);
+     border-radius: 8px;
+     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+     opacity: 0;
+     transition: opacity 0.5s ease-in-out;
+     display: none;
+     overflow: hidden;
+ }
+
+ .slide.active {
+     display: block;
+     opacity: 1;
+ }
+
+ /* Contenu du slide avec espacement constant comme PowerPoint */
+ .slide-content {
+     width: 100%;
+     height: 100%;
+     padding: 5.5%;
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     overflow-y: auto;
+ }
+
+ /* Titres avec espacement constant */
+ h1,
+ h2,
+ h3 {
+     color: var(--lavender);
+     margin: 0 0 1.2em 0;
+     line-height: 1.2;
+ }
+
+ h1 {
+     font-size: clamp(1.8em, 4vw, 3em);
+     margin-bottom: 0.8em;
+ }
+
+ h2 {
+     font-size: clamp(1.5em, 3vw, 2.2em);
+ }
+
+ h3 {
+     font-size: clamp(1.2em, 2.5vw, 1.8em);
+ }
+
+ /* Paragraphes avec espacement constant */
+ p {
+     line-height: 1.8;
+     font-size: clamp(0.9em, 1.8vw, 1.3em);
+     margin: 0 0 1em 0;
+ }
+
+ /* Bloc de citation */
+ blockquote {
+     border-left: 4px solid var(--blue);
+     padding-left: 1.5em;
+     margin: 1.5em 0;
+     font-style: italic;
+     color: var(--subtext1);
+ }
+
+ /* Code inline et blocs */
+ code {
+     background-color: var(--surface0);
+     padding: 0.2em 0.4em;
+     border-radius: 3px;
+     font-size: 0.9em;
+ }
+
+ pre {
+     background-color: var(--surface0);
+     padding: 1em;
+     border-radius: 6px;
+     overflow-x: auto;
+     margin: 1em 0;
+ }
+
+ pre code {
+     background: none;
+     padding: 0;
+ }
+
+ /* Listes avec espacement constant */
+ ul,
+ ol {
+     margin: 1em 0;
+     padding-left: 2em;
+ }
+
+ strong {
+     color: var(--blue);
+     font-weight: bold;
+ }
+
+ em {
+     color: var(--mauve);
+     font-style: italic;
+ }
+
+ /* Pied de page avec positionnement constant */
+ footer {
+     position: absolute;
+     bottom: 3%;
+     right: 4%;
+     color: var(--overlay1);
+     font-size: clamp(0.7em, 1.2vw, 0.9em);
+     opacity: 0.7;
+ }
+
+ /* Custom scrollbar for overflowing content */
+ .slide-content::-webkit-scrollbar {
+     width: 8px;
+ }
+
+ .slide-content::-webkit-scrollbar-track {
+     background: var(--surface0);
+     border-radius: 4px;
+ }
+
+ .slide-content::-webkit-scrollbar-thumb {
+     background: var(--surface2);
+     border-radius: 4px;
+ }
+
+ .slide-content::-webkit-scrollbar-thumb:hover {
+     background: var(--overlay0);
+ }
+
+ /* Images avec sous-titres */
+ figure {
+     margin: 0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ figure img {
+     max-width: 100%;
+     height: auto;
+     border-radius: 6px;
+ }
+
+ figcaption {
+     margin-top: 0.5em;
+     font-size: clamp(0.7em, 1.2vw, 0.9em);
+     color: var(--subtext0);
+     font-style: italic;
+     text-align: center;
+ }
+
+ .hidden {
+     display: none;
+ }
+
+ /* ===== SLIDE LAYOUTS ===== */
+
+ /* Layout: Title — centered title with larger font */
+ .slide.layout-title .slide-content {
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+ }
+
+ .slide.layout-title .slide-content h1 {
+     font-size: clamp(2.5em, 5vw, 4em);
+     margin-bottom: 0.3em;
+ }
+
+ .slide.layout-title .slide-content p {
+     font-size: clamp(1em, 2vw, 1.5em);
+ }
+
+ /* Layout: Text — text only, vertically centered */
+ .slide.layout-text .slide-content {
+     justify-content: center;
+ }
+
+ /* Layout: Full image — image covers entire slide */
+ .slide.layout-image-full .slide-content {
+     padding: 0;
+     overflow: hidden;
+ }
+
+ .slide.layout-image-full .slide-content>* {
+     display: none;
+ }
+
+ .slide.layout-image-full .slide-content>figure {
+     display: block;
+     margin: 0;
+     width: 100%;
+     height: 100%;
+ }
+
+ .slide.layout-image-full .slide-content figure figcaption {
+     display: none;
+ }
+
+ .slide.layout-image-full .slide-content img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     border-radius: 0;
+ }
+
+ /* Layout: Text left + Image right */
+ .slide.layout-text-image .slide-content {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 0 2em;
+     align-content: start;
+ }
+
+ .slide.layout-text-image .slide-content>h1,
+ .slide.layout-text-image .slide-content>h2,
+ .slide.layout-text-image .slide-content>h3 {
+     grid-column: 1 / -1;
+ }
+
+ .slide.layout-text-image .slide-content>figure {
+     grid-column: 2;
+     grid-row: 2 / span 20;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     margin: 0;
+ }
+
+ .slide.layout-text-image .slide-content>figure img {
+     width: 100%;
+     height: auto;
+     max-height: 100%;
+     object-fit: contain;
+     border-radius: 6px;
+ }
+
+ /* Layout: Image left + Text right */
+ .slide.layout-image-text .slide-content {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 0 2em;
+     align-content: start;
+ }
+
+ .slide.layout-image-text .slide-content>h1,
+ .slide.layout-image-text .slide-content>h2,
+ .slide.layout-image-text .slide-content>h3 {
+     grid-column: 1 / -1;
+ }
+
+ .slide.layout-image-text .slide-content>figure {
+     grid-column: 1;
+     grid-row: 2 / span 20;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     margin: 0;
+ }
+
+ .slide.layout-image-text .slide-content>figure img {
+     width: 100%;
+     height: auto;
+     max-height: 100%;
+     object-fit: contain;
+     border-radius: 6px;
+ }
+
+ .slide.layout-image-text .slide-content> :not(h1):not(h2):not(h3):not(figure) {
+     grid-column: 2;
+ }
+
+ /* Layout: Two columns — content flows into two columns */
+ .slide.layout-two-cols .slide-content {
+     display: block;
+     column-count: 2;
+     column-gap: 2em;
+ }
+
+ .slide.layout-two-cols .slide-content>h1,
+ .slide.layout-two-cols .slide-content>h2,
+ .slide.layout-two-cols .slide-content>h3 {
+     column-span: all;
+ }

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "glissade"
+version = "0.1.0"
+description = "Convert markdown files into interactive HTML slide presentations"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["markdown>=3.10.2"]
+
+[project.scripts]
+glissade = "glissade.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["glissade"]
